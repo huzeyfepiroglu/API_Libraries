@@ -65,7 +65,6 @@ set_gain fonksiyomnu ise basta cagirilmali. bu yuzden fonksiyon bu sekilde degis
 */
 void HX711::begin(uint8_t gain)
 {
-
 	set_gain(gain);
 }
 
@@ -95,7 +94,6 @@ void HX711::set_gain(uint8_t gain)
 
 long HX711::read()
 {
-
 	// Wait for the chip to become ready.
 	wait_ready();
 
@@ -149,22 +147,14 @@ long HX711::read()
 
 void HX711::wait_ready(unsigned long delay_ms)
 {
-	// Wait for the chip to become ready.
-	// This is a blocking implementation and will
-	// halt the sketch until a load cell is connected.
 	while (!is_ready())
 	{
-		// Probably will do no harm on AVR but will feed the Watchdog Timer (WDT) on ESP.
-		// https://github.com/bogde/HX711/issues/73
 		HAL_Delay(delay_ms);
 	}
 }
 
 bool HX711::wait_ready_retry(uint8_t retries, unsigned long delay_ms)
 {
-	// Wait for the chip to become ready by
-	// retrying for a specified amount of attempts.
-	// https://github.com/bogde/HX711/issues/76
 	int count = 0;
 	while (count < retries)
 	{
@@ -180,8 +170,6 @@ bool HX711::wait_ready_retry(uint8_t retries, unsigned long delay_ms)
 
 bool HX711::wait_ready_timeout(unsigned long timeout, unsigned long delay_ms)
 {
-	// Wait for the chip to become ready until timeout.
-	// https://github.com/bogde/HX711/pull/96
 	unsigned long millisStarted = millis();
 	while (millis() - millisStarted < timeout)
 	{
@@ -200,8 +188,6 @@ long HX711::read_average(uint8_t times)
 	for (int i = 0; i < times; i++)
 	{
 		sum += read();
-		// Probably will do no harm on AVR but will feed the Watchdog Timer (WDT) on ESP.
-		// https://github.com/bogde/HX711/issues/73
 		HAL_Delay(0);
 	}
 	return sum / times;

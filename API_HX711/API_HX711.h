@@ -45,7 +45,7 @@ public:
 	// - With a gain factor of 32, channel B is selected
 	// The library default is "128" (Channel A).
 	//void begin(int dout, int pd_sck, int gain = 128);
-	void begin(uint8_t gain = 128); //a�iklama headerda
+	void begin(uint8_t gain = 128); //aciklama headerda
 
 	// Check if HX711 is ready
 	// from the datasheet: When output data is not ready for retrieval, digital output pin DOUT is high. Serial clock
